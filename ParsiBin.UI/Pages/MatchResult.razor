@@ -1,0 +1,110 @@
+﻿@page "/MatchResult"
+
+@using ParsiBin.UI.Controllers
+@using ParsiBin.DTO.Match
+@using ParsiBin.DTO.Team
+@using ParsiBin.DTO.League
+@using ParsiBin.DTO.Season
+@inject MatchController _Match
+
+
+<EditForm Model="@match" OnValidSubmit="@HandleValidSubmit">
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="League" class="form-label">League</label>
+                <InputSelect @bind-Value="match.League" class="form-control">
+                    <option value="1" selected>Persian Gulf Pro League</option>
+                    <option value="2">Premier League</option>                    
+                </InputSelect>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="Season" class="form-label">Season</label>
+                <InputSelect @bind-Value="match.Season" class="form-control" @oninput="OnSeasonSelect">
+                    <option value="0" selected>Select Season</option>
+                    <option value="1" selected>Iran 2020-21</option>
+                    <option value="2" selected>Premier League 2020/21</option>                    
+                </InputSelect>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="HomeTeam" class="form-label">Select Match</label>
+        <InputSelect @bind-Value="match.Match" class="form-control">
+            <option selected>Select a Match</option>
+            @foreach (var item in lstMatches)
+            {
+                <option value="@item.Id">@item.HomeTeam.Name VS @item.AwayTeam.Name (week : @item.Week)</option>
+            }
+        </InputSelect>
+        <div id="emailHelp" class="form-text"></div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label for="HomeGoal" class="form-label">Home Goal</label>
+            <InputNumber @bind-Value="match.HomeGoal" class="form-control"></InputNumber>
+            <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div class="col-6">
+            <label for="AwayGoal" class="form-label">Away Goal</label>
+            <InputNumber @bind-Value="match.AwayGoal" class="form-control"></InputNumber>
+            <div id="emailHelp" class="form-text"></div>
+        </div>
+    </div>    
+    <input type="submit" class="form-control btn-primary" value="Submit" />
+</EditForm>
+
+@code {
+    private AddMatchResultDTO match = new AddMatchResultDTO();
+    private List<MatchDTO> lstMatches = new List<MatchDTO>();
+    private List<LeagueDTO> lstLeague = new List<LeagueDTO>();
+    private IEnumerable<SeasonDTO> lstSeason;
+    private int resultValue = 0;
+    private int LeagueId = 0, SeasonId = 0;
+    private DateTime datenow = DateTime.Now;
+
+    protected async void GetMatches()
+    {
+        if (LeagueId > 0 && SeasonId > 0)
+            lstMatches = await _Match.GetWaitingMatchesList(LeagueId, SeasonId);
+    }
+
+    private async Task<int> HandleValidSubmit()
+    {
+        resultValue = await _Match.SubmitMatchResult(match);
+        return resultValue;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstLeague = await _Match.GetLeagueList();
+        lstSeason = await _Match.GetSeasonList(lstLeague.FirstOrDefault().Id);
+    }
+}
+
+@functions{
+
+    async void OnLeagueSelect(ChangeEventArgs e)
+    {
+        if (e.Value != "0")
+        {
+            LeagueId = int.Parse(e.Value.ToString());
+            lstSeason = await _Match.GetSeasonList(LeagueId);
+        }
+    }
+
+    void OnSeasonSelect(ChangeEventArgs e)
+    {
+        if (e.Value != "0")
+        {
+            SeasonId = int.Parse(e.Value.ToString());
+            LeagueId = int.Parse(match.League.ToString());
+            GetMatches();
+        }
+    }
+
+}

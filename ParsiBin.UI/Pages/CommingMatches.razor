@@ -1,0 +1,200 @@
+﻿@page "/CommingMateches"
+
+@using ParsiBin.UI.Controllers
+@using ParsiBin.DTO.Match
+@using System.Collections.Generic;
+@using ParsiBin.DTO.StandingTable
+@inject MatchController match
+
+
+@if (lst != null)
+{
+    @foreach (var item in lst.OrderBy(x => x.MatchDate))
+    {
+        var awayteam = @lstRank.Where(x => x.Name == item.AwayTeam.Name).FirstOrDefault();
+        var hometeam = @lstRank.Where(x => x.Name == item.HomeTeam.Name).FirstOrDefault();
+        <div class="card text-center">
+            <div class="card-header">
+                <img src="/@item.League.Logo" class="TeamLogo" />@item.League.Name - @item.MatchDate.ToString("yyyy-MM-dd HH:mm") (week : @item.Week)
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="/@item.HomeTeam.Logo" class="TeamLogo" /> <h6>@item.HomeTeam.Name</h6>
+                        <table class="table table-bordered table-statistic">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Total statistics</th>
+                                    <th colspan="2">Home statistics</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Rank :</th>
+                                    <th colspan="3">@hometeam.Rank</th>
+                                </tr>
+                                <tr>
+                                    <th>Total played this season :</th>
+                                    <td>@hometeam.MatchPlayed</td>
+                                    <th>Total home played this season :</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Total goals for : </th>
+                                    <td>@hometeam.GoalsFor</td>
+                                    <th>Total home goals for :</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Total goals against : </th>
+                                    <td>@hometeam.GoalsAgainst</td>
+                                    <th>Total home goals against :</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Goal diffrence : </th>
+                                    <td>@hometeam.Goaldiffrence</td>
+                                    <th>Goal diffrence (Home) : </th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Goals for per game : </th>
+                                    <td>@Math.Round(((double)hometeam.GoalsFor / (double)hometeam.MatchPlayed),1)</td>
+                                    <th>Goals for per game (Home) : </th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Goal against per game : </th>
+                                    <td>@Math.Round(((double)hometeam.GoalsAgainst / (double)hometeam.MatchPlayed),1)</td>
+                                    <th>Goal against per game (Home) : </th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Last 5 Matches :</th>
+                                    <td colspan="3">
+                                        @{
+                                            foreach (var itemx in hometeam.Last5Match)
+                                            {
+                                                bool isHomeTeam = false;
+                                                if (itemx.Match.HomeTeam.Id == hometeam.Id)
+                                                    isHomeTeam = true;
+                                                if (itemx.HomeGoal == itemx.AwayGoal)
+                                                {
+                                                    <span class="badge rounded-pill bg-secondary text-light dot">-</span>
+                                                }
+
+                                                else if ((isHomeTeam && (itemx.HomeGoal > itemx.AwayGoal)) || !isHomeTeam && (itemx.AwayGoal > itemx.HomeGoal))
+                                                {
+                                                    <span class="badge rounded-pill bg-success text-light dot">W</span>
+                                                }
+                                                else if ((isHomeTeam && (itemx.AwayGoal > itemx.HomeGoal)) || !isHomeTeam && (itemx.HomeGoal > itemx.AwayGoal))
+                                                {
+                                                    <span class="badge rounded-pill bg-danger text-light dot">L</span>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        <img src="/@item.AwayTeam.Logo" class="TeamLogo" /> <h6>@item.AwayTeam.Name</h6>
+                        <table class="table table-bordered table-statistic">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Total statistics</th>
+                                    <th colspan="2">Away statistics</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Rank :</th>
+                                    <th colspan="3">@awayteam.Rank</th>
+                                </tr>
+                                <tr>
+                                    <th>Total played this season :</th>
+                                    <td>@awayteam.MatchPlayed</td>
+                                    <th>Total away played this season :</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Total goals for : </th>
+                                    <td>@awayteam.GoalsFor</td>
+                                    <th>Total away goals for :</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Total goals against : </th>
+                                    <td>@awayteam.GoalsAgainst</td>
+                                    <th>Total away goals against :</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Goal diffrence : </th>
+                                    <td>@awayteam.Goaldiffrence</td>
+                                    <th>Goal diffrence (Away) : </th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Goals for per game : </th>
+                                    <td>@Math.Round(((double)awayteam.GoalsFor / (double)awayteam.MatchPlayed), 1)</td>
+                                    <th>Goals for per game (Away) : </th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Goal against per game : </th>
+                                    <td>@Math.Round(((double)awayteam.GoalsAgainst / (double)awayteam.MatchPlayed), 1)</td>
+                                    <th>Goal against per game (Away) : </th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Last 5 Matches :</th>
+                                    <td colspan="3">
+                                        @{
+                                            foreach (var itemx in awayteam.Last5Match)
+                                            {
+                                                bool isHomeTeam = false;
+                                                if (itemx.Match.AwayTeam.Id == awayteam.Id)
+                                                    isHomeTeam = true;
+                                                if (itemx.HomeGoal == itemx.AwayGoal)
+                                                {
+                                                    <span class="badge rounded-pill bg-secondary text-light dot">-</span>
+                                                }
+
+                                                else if ((isHomeTeam && (itemx.HomeGoal < itemx.AwayGoal)) || !isHomeTeam && (itemx.AwayGoal < itemx.HomeGoal))
+                                                {
+                                                    <span class="badge rounded-pill bg-success text-light dot">W</span>
+                                                }
+                                                else if ((isHomeTeam && (itemx.AwayGoal < itemx.HomeGoal)) || !isHomeTeam && (itemx.HomeGoal < itemx.AwayGoal))
+                                                {
+                                                    <span class="badge rounded-pill bg-danger text-light dot">L</span>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    @item.MatchStaus_string
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+}
+
+@code {
+    private IEnumerable<MatchDTO> lst;
+    private IEnumerable<TableDTO> lstRank;
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstRank = await match.GetLeagueTable(1, 1);
+        lst = await match.GetCommingMatches(1);
+
+    }
+}

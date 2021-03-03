@@ -1,0 +1,159 @@
+﻿@page "/Match"
+
+@using ParsiBin.UI.Controllers
+@using ParsiBin.DTO.Match
+@using ParsiBin.DTO.Team
+@using ParsiBin.DTO.League
+@using ParsiBin.DTO.Season
+@inject MatchController _Match
+
+@if (resultValue > 0)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> Data is added successfully.
+    </div>
+}
+@*else
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Oooops!</strong> There is something get wrong.
+        </div>
+    }*@
+
+
+<EditForm Model="@match" OnValidSubmit="@HandleValidSubmit">
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="League" class="form-label">League</label>
+                <InputSelect @bind-Value="match.League" class="form-control" @oninput="OnLeagueSelect">
+                    <option value="0" selected>Select League</option>
+                    @if (lstLeague != null)
+                    {
+                        foreach (var item in lstLeague)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </InputSelect>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="Season" class="form-label">Season</label>
+                <InputSelect @bind-Value="match.Season" class="form-control" @oninput="OnSeasonSelect">
+                    <option value="0" selected>Select Season</option>
+                    @if (lstSeason != null)
+                    {
+                        foreach (var item in lstSeason)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </InputSelect>
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="HomeTeam" class="form-label">Home Team</label>
+        <InputSelect @bind-Value="match.HomeTeam" class="form-control">
+            <option disabled selected>Select a team</option>
+            @foreach (var item in lst)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+
+        </InputSelect>
+        <div id="emailHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="AwayTeam" class="form-label">Away Team</label>
+        <InputSelect @bind-Value="match.AwayTeam" class="form-control">
+            <option disabled selected>Select a team</option>
+            @if (lst != null)
+            {
+                foreach (var item in lst)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </InputSelect>
+        <div id="emailHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="Week" class="form-label">Week</label>
+        <InputNumber @bind-Value="match.Week" class="form-control"></InputNumber>
+        <div id="emailHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="MatchDate" class="form-label">Match Date</label>
+        @*<input type="datetime-local" name="MatchDate" class="form-control" />*@
+        <input @bind=match.MatchDate
+               @bind:format="yyyy-MM-ddTHH:mm"
+               class="form-control"
+               type="datetime-local" />
+        @*<input type="datetime-local" name="@match.MatchDate" class="form-control">*@
+        <div id="emailHelp" class="form-text"></div>
+    </div>
+    <input type="number" value="@stadium" style="visibility:hidden;" />
+    <input type="submit" class="form-control btn-primary" value="Submit" />
+</EditForm>
+
+@code {
+    private AddNewMatchDTO match = new AddNewMatchDTO();
+    private List<TeamDTO> lst = new List<TeamDTO>();
+    private List<LeagueDTO> lstLeague = new List<LeagueDTO>();
+    private IEnumerable<SeasonDTO> lstSeason;
+    private int resultValue = 0;
+    private int LeagueId = 0, SeasonId = 0;
+    private DateTime datenow = DateTime.Now;
+
+    protected async void GetTeams()
+    {
+        if (LeagueId > 0 && SeasonId > 0)
+            lst = await _Match.GetTeamsListAsync(LeagueId, SeasonId);
+    }
+
+    private async Task<int> HandleValidSubmit()
+    {
+        resultValue = await _Match.AddNewMatchAsync(match, stadium);
+        return resultValue;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstLeague = await _Match.GetLeagueList();
+        lstSeason = await _Match.GetSeasonList(lstLeague.FirstOrDefault().Id);
+    }
+
+
+}
+
+@functions{
+    int stadium = 0;
+    void ChangeStadium(ChangeEventArgs e)
+    {
+        stadium = lst.Where(x => x.Id == int.Parse(e.Value.ToString())).Select(x => x.Stadium.Id).FirstOrDefault();
+    }
+
+    async void OnLeagueSelect(ChangeEventArgs e)
+    {
+        if (e.Value != "0")
+        {
+            LeagueId = int.Parse(e.Value.ToString());
+            lstSeason = await _Match.GetSeasonList(LeagueId);
+        }
+    }
+
+    void OnSeasonSelect(ChangeEventArgs e)
+    {
+        if (e.Value != "0")
+        {
+            SeasonId = int.Parse(e.Value.ToString());
+            GetTeams();
+        }
+    }
+
+}

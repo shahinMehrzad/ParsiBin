@@ -1,0 +1,82 @@
+﻿@page "/"
+
+@using ParsiBin.UI.Controllers
+@using ParsiBin.DTO.StandingTable
+@inject MatchController match
+@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">Position</th>
+            <th scope="col">Club</th>
+            <th scope="col">Played</th>
+            <th scope="col">Won</th>
+            <th scope="col">Drawn</th>
+            <th scope="col">Lost</th>
+            <th scope="col">GF</th>
+            <th scope="col">GA</th>
+            <th scope="col">GD</th>
+            <th scope="col">Points</th>
+            <th scope="col">Form</th>
+            <th scope="col">Next</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (lst != null)
+        {
+            @foreach (var item in lst.OrderBy(x => x.Rank))
+            {
+                <tr>
+                    <td> @item.Rank</td>
+                    <td><img src="/@item.Logo" class="TeamLogo" /> @item.Name</td>
+                    <td>@item.MatchPlayed</td>
+                    <td>@item.MatchWon</td>
+                    <td>@item.MatchDrawn</td>
+                    <td>@item.MatchLost</td>
+                    <td>@item.GoalsFor</td>
+                    <td>@item.GoalsAgainst</td>
+                    <td>@item.Goaldiffrence</td>
+                    <td>@item.Points</td>
+                    <td>
+                        @{
+                            foreach (var itemx in item.Last5Match)
+                            {
+                                bool isHomeTeam = false;
+                                if (itemx.Match.HomeTeam.Id == item.Id)
+                                    isHomeTeam = true;
+                                if (itemx.HomeGoal == itemx.AwayGoal)
+                                {
+                                    <span class="badge rounded-pill bg-secondary text-light dot-table">-</span>
+                                }
+
+                                else if ((isHomeTeam && (itemx.HomeGoal > itemx.AwayGoal)) || !isHomeTeam && (itemx.AwayGoal > itemx.HomeGoal))
+                                {
+                                    <span class="badge rounded-pill bg-success text-light dot-table">W</span>
+                                }
+                                else if ((isHomeTeam && (itemx.AwayGoal > itemx.HomeGoal)) || !isHomeTeam && (itemx.HomeGoal > itemx.AwayGoal))
+                                {
+                                    <span class="badge rounded-pill bg-danger text-light dot-table">L</span>
+                                }
+                            }
+                        }
+                    </td>
+                    <td>-</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@code {
+    //private WeatherForecast[] forecasts;
+    private IEnumerable<TableDTO> lst;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //var x = await match.GetCommingMatches(1);
+        lst = await match.GetLeagueTable(2, 2);
+
+    }
+}
