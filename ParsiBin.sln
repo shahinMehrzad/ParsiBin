@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsiBin.Services", "ParsiB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsiBin.DTO", "ParsiBin.DTO\ParsiBin.DTO.csproj", "{C00F16DA-DA37-46E9-B9F9-ACD56D35C16F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataParser", "DataParser\DataParser.csproj", "{F192E090-34CF-42A4-9E98-AE0C49AEC6EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C00F16DA-DA37-46E9-B9F9-ACD56D35C16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C00F16DA-DA37-46E9-B9F9-ACD56D35C16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C00F16DA-DA37-46E9-B9F9-ACD56D35C16F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F192E090-34CF-42A4-9E98-AE0C49AEC6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F192E090-34CF-42A4-9E98-AE0C49AEC6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F192E090-34CF-42A4-9E98-AE0C49AEC6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F192E090-34CF-42A4-9E98-AE0C49AEC6EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

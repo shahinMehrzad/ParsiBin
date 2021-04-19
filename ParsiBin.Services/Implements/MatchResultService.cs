@@ -72,17 +72,17 @@ namespace ParsiBin.Services.Implements
                                 Name = x.Match.AwayTeam.Name,
                                 Stadium = new DTO.Stadium.StadiumDTO
                                 {
-                                    Id = x.Match.AwayTeam.Stadium.Id,
-                                    Name = x.Match.AwayTeam.Stadium.Name,
+                                    //Id = x.Match.AwayTeam.Stadium.Id,
+                                    //Name = x.Match.AwayTeam.Stadium.Name,
                                     City = new DTO.City.CityDTO
                                     {
-                                        Id = x.Match.AwayTeam.Stadium.City.Id,
-                                        Name = x.Match.AwayTeam.Stadium.City.Name,
+                                        //Id = x.Match.AwayTeam.Stadium.City.Id,
+                                        //Name = x.Match.AwayTeam.Stadium.City.Name,
                                         Country = new DTO.Country.CountryDTO
                                         {
-                                            Id = x.Match.AwayTeam.Stadium.City.Country.Id,
-                                            Name = x.Match.AwayTeam.Stadium.City.Country.Name,
-                                            Flag = x.Match.AwayTeam.Stadium.City.Country.Flag
+                                            //Id = x.Match.AwayTeam.Stadium.City.Country.Id,
+                                            //Name = x.Match.AwayTeam.Stadium.City.Country.Name,
+                                            //Flag = x.Match.AwayTeam.Stadium.City.Country.Flag
                                         }
                                     }
                                 }
@@ -94,17 +94,17 @@ namespace ParsiBin.Services.Implements
                                 Name = x.Match.HomeTeam.Name,
                                 Stadium = new DTO.Stadium.StadiumDTO
                                 {
-                                    Id = x.Match.HomeTeam.Stadium.Id,
-                                    Name = x.Match.HomeTeam.Stadium.Name,
+                                    //Id = x.Match.HomeTeam.Stadium.Id,
+                                    //Name = x.Match.HomeTeam.Stadium.Name,
                                     City = new DTO.City.CityDTO
                                     {
-                                        Id = x.Match.HomeTeam.Stadium.City.Id,
-                                        Name = x.Match.HomeTeam.Stadium.City.Name,
+                                        //Id = x.Match.HomeTeam.Stadium.City.Id,
+                                        //Name = x.Match.HomeTeam.Stadium.City.Name,
                                         Country = new DTO.Country.CountryDTO
                                         {
-                                            Id = x.Match.HomeTeam.Stadium.City.Country.Id,
-                                            Name = x.Match.HomeTeam.Stadium.City.Country.Name,
-                                            Flag = x.Match.HomeTeam.Stadium.City.Country.Flag
+                                            //Id = x.Match.HomeTeam.Stadium.City.Country.Id,
+                                            //Name = x.Match.HomeTeam.Stadium.City.Country.Name,
+                                            //Flag = x.Match.HomeTeam.Stadium.City.Country.Flag
                                         }
                                     }
                                 }

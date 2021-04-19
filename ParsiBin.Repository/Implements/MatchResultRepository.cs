@@ -29,9 +29,9 @@ namespace ParsiBin.Repository.Implements
                 .ThenInclude(x => x.Seasons)
                 .ThenInclude(x => x.SeasonTeams)
                 .ThenInclude(x => x.Team)
-                .ThenInclude(x=> x.Stadium)
-                .ThenInclude(x=>x.City)
-                .ThenInclude(x=>x.Country)
+                //.ThenInclude(x=> x.Stadium)
+                //.ThenInclude(x=>x.City)
+                //.ThenInclude(x=>x.Country)
                 .Where(x => x.Status == true && x.Match.League.Id == LeagueId && x.Match.Season.Id == SeasonId)
                 .ToListAsync();
             return result;

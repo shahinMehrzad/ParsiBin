@@ -11,7 +11,7 @@ namespace ParsiBin.DAL.Context
     {        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-                optionsBuilder.UseSqlServer(@"Server=.;Initial Catalog=ParsiBin;Integrated Security=True;");
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-V0T1R5F\SQLEXPRESS;Initial Catalog=ParsiBin;Integrated Security=True;");
         }
 
         #region DBSet

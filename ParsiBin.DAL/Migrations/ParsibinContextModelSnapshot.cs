@@ -546,15 +546,6 @@ namespace ParsiBin.DAL.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CoachId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -567,21 +558,10 @@ namespace ParsiBin.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StadiumId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CoachId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("StadiumId");
 
                     b.ToTable("Team");
                 });
@@ -804,33 +784,6 @@ namespace ParsiBin.DAL.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("ParsiBin.DAL.Entities.Team", b =>
-                {
-                    b.HasOne("ParsiBin.DAL.Entities.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("ParsiBin.DAL.Entities.Coach", "Coach")
-                        .WithMany()
-                        .HasForeignKey("CoachId");
-
-                    b.HasOne("ParsiBin.DAL.Entities.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("ParsiBin.DAL.Entities.Stadium", "Stadium")
-                        .WithMany("TeamsArena")
-                        .HasForeignKey("StadiumId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("Coach");
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Stadium");
-                });
-
             modelBuilder.Entity("ParsiBin.DAL.Entities.TeamCoach", b =>
                 {
                     b.HasOne("ParsiBin.DAL.Entities.Coach", "Coach")
@@ -879,11 +832,6 @@ namespace ParsiBin.DAL.Migrations
             modelBuilder.Entity("ParsiBin.DAL.Entities.Season", b =>
                 {
                     b.Navigation("SeasonTeams");
-                });
-
-            modelBuilder.Entity("ParsiBin.DAL.Entities.Stadium", b =>
-                {
-                    b.Navigation("TeamsArena");
                 });
 
             modelBuilder.Entity("ParsiBin.DAL.Entities.Team", b =>

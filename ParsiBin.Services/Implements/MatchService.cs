@@ -76,12 +76,12 @@ namespace ParsiBin.Services.Implements
                              Logo = item.AwayTeam.Logo,
                              Name = item.AwayTeam.Name,
                              Stadium = new DTO.Stadium.StadiumDTO { 
-                                Id = item.AwayTeam.Stadium.Id,
-                                Name = item.AwayTeam.Stadium.Name,
+                                //Id = item.AwayTeam.Stadium.Id,
+                                //Name = item.AwayTeam.Stadium.Name,
                                 City = new DTO.City.CityDTO
                                 {
-                                    Id = item.AwayTeam.Stadium.Id,
-                                    Name = item.AwayTeam.Stadium.Name                                    
+                                    //Id = item.AwayTeam.Stadium.Id,
+                                    //Name = item.AwayTeam.Stadium.Name                                    
                                 }
                              } 
                         },
@@ -91,12 +91,12 @@ namespace ParsiBin.Services.Implements
                             Name = item.HomeTeam.Name,
                             Stadium = new DTO.Stadium.StadiumDTO
                             {
-                                Id = item.HomeTeam.Stadium.Id,
-                                Name = item.HomeTeam.Stadium.Name,
+                                //Id = item.HomeTeam.Stadium.Id,
+                                //Name = item.HomeTeam.Stadium.Name,
                                 City = new DTO.City.CityDTO
                                 {
-                                    Id = item.HomeTeam.Stadium.Id,
-                                    Name = item.HomeTeam.Stadium.Name
+                                    //Id = item.HomeTeam.Stadium.Id,
+                                    //Name = item.HomeTeam.Stadium.Name
                                 }
                             }
                         },
@@ -135,12 +135,12 @@ namespace ParsiBin.Services.Implements
                         Name = item.AwayTeam.Name,
                         Stadium = new DTO.Stadium.StadiumDTO
                         {
-                            Id = item.AwayTeam.Stadium.Id,
-                            Name = item.AwayTeam.Stadium.Name,
+                            //Id = item.AwayTeam.Stadium.Id,
+                            //Name = item.AwayTeam.Stadium.Name,
                             City = new DTO.City.CityDTO
                             {
-                                Id = item.AwayTeam.Stadium.Id,
-                                Name = item.AwayTeam.Stadium.Name
+                                //Id = item.AwayTeam.Stadium.Id,
+                                //Name = item.AwayTeam.Stadium.Name
                             }
                         }
                     },
@@ -151,12 +151,12 @@ namespace ParsiBin.Services.Implements
                         Name = item.HomeTeam.Name,
                         Stadium = new DTO.Stadium.StadiumDTO
                         {
-                            Id = item.HomeTeam.Stadium.Id,
-                            Name = item.HomeTeam.Stadium.Name,
+                            //Id = item.HomeTeam.Stadium.Id,
+                            //Name = item.HomeTeam.Stadium.Name,
                             City = new DTO.City.CityDTO
                             {
-                                Id = item.HomeTeam.Stadium.Id,
-                                Name = item.HomeTeam.Stadium.Name
+                                //Id = item.HomeTeam.Stadium.Id,
+                                //Name = item.HomeTeam.Stadium.Name
                             }
                         }
                     },

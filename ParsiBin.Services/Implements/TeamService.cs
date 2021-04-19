@@ -36,8 +36,8 @@ namespace ParsiBin.Services.Implements
                     Name = item.Name,
                     Stadium = new DTO.Stadium.StadiumDTO
                     {
-                        Name = item.Stadium.Name,
-                        Id = item.Stadium.Id
+                        //Name = item.Stadium.Name,
+                        //Id = item.Stadium.Id
                     }
                 });
             }

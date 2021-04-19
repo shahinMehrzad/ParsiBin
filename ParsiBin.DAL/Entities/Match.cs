@@ -14,6 +14,10 @@ namespace ParsiBin.DAL.Entities
         public Team AwayTeam { get; set; }
         public int Week { get; set; }
         public DateTime MatchDate { get; set; }
+        /// <summary>
+        /// Match Played = 1,
+        /// 
+        /// </summary>
         public int MatchStatus { get; set; }
     }
 }

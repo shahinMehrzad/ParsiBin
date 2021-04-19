@@ -10,8 +10,8 @@ using ParsiBin.DAL.Context;
 namespace ParsiBin.DAL.Migrations
 {
     [DbContext(typeof(ParsibinContext))]
-    [Migration("20201227115427_20201227")]
-    partial class _20201227
+    [Migration("20210417080121_TeamStadiumProblem")]
+    partial class TeamStadiumProblem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,27 @@ namespace ParsiBin.DAL.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.ActionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActionType");
+                });
 
             modelBuilder.Entity("ParsiBin.DAL.Entities.City", b =>
                 {
@@ -208,6 +229,172 @@ namespace ParsiBin.DAL.Migrations
                     b.ToTable("MatchResult");
                 });
 
+            modelBuilder.Entity("ParsiBin.DAL.Entities.MatchResultDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ActionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MatchResultId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Minute")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActionTypeId");
+
+                    b.HasIndex("MatchResultId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("MatchResultDetail");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.MatchResultState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<double>("AwayTeam_Aerial_Duels_Percentage")
+                        .HasColumnType("float");
+
+                    b.Property<int>("AwayTeam_Blocked_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Clear_Cut_Chances")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Corners")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Fouls_Committed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Fouls_Won")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Of_Target_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Offsides")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_On_Target_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Passes")
+                        .HasColumnType("int");
+
+                    b.Property<double>("AwayTeam_Passing_Percentage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AwayTeam_Possession")
+                        .HasColumnType("float");
+
+                    b.Property<int>("AwayTeam_Red_Cards")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Saves")
+                        .HasColumnType("int");
+
+                    b.Property<double>("AwayTeam_Tackles_Percentage")
+                        .HasColumnType("float");
+
+                    b.Property<int>("AwayTeam_Total_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Touches")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AwayTeam_Yellow_Cards")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("HomeTeam_Aerial_Duels_Percentage")
+                        .HasColumnType("float");
+
+                    b.Property<int>("HomeTeam_Blocked_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Clear_Cut_Chances")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Corners")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Fouls_Committed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Fouls_Won")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Of_Target_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Offsides")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_On_Target_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Passes")
+                        .HasColumnType("int");
+
+                    b.Property<double>("HomeTeam_Passing_Percentage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HomeTeam_Possession")
+                        .HasColumnType("float");
+
+                    b.Property<int>("HomeTeam_Red_Cards")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Saves")
+                        .HasColumnType("int");
+
+                    b.Property<double>("HomeTeam_Tackles_Percentage")
+                        .HasColumnType("float");
+
+                    b.Property<int>("HomeTeam_Total_Shots")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Touches")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeTeam_Yellow_Cards")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MatchResultId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchResultId");
+
+                    b.ToTable("MatchResultState");
+                });
+
             modelBuilder.Entity("ParsiBin.DAL.Entities.Player", b =>
                 {
                     b.Property<int>("Id")
@@ -227,6 +414,9 @@ namespace ParsiBin.DAL.Migrations
                     b.Property<int?>("NationalityId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("RetirementDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
@@ -235,6 +425,43 @@ namespace ParsiBin.DAL.Migrations
                     b.HasIndex("NationalityId");
 
                     b.ToTable("Player");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.PlayerPosition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("PositionId");
+
+                    b.ToTable("PlayerPositions");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Position");
                 });
 
             modelBuilder.Entity("ParsiBin.DAL.Entities.Season", b =>
@@ -321,12 +548,6 @@ namespace ParsiBin.DAL.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -339,34 +560,62 @@ namespace ParsiBin.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StadiumId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("StadiumId");
-
                     b.ToTable("Team");
                 });
 
-            modelBuilder.Entity("ParsiBin.DAL.Entities.TeamSeason", b =>
+            modelBuilder.Entity("ParsiBin.DAL.Entities.TeamCoach", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<int?>("CoachId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SeasonId")
+                    b.Property<DateTime?>("LeftDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamCoach");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.TeamPlayers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("JoinDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LeftDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShirtNumber")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -377,11 +626,11 @@ namespace ParsiBin.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SeasonId");
+                    b.HasIndex("PlayerId");
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("TeamSeason");
+                    b.ToTable("TeamPlayers");
                 });
 
             modelBuilder.Entity("ParsiBin.DAL.Entities.City", b =>
@@ -444,6 +693,42 @@ namespace ParsiBin.DAL.Migrations
                     b.Navigation("Match");
                 });
 
+            modelBuilder.Entity("ParsiBin.DAL.Entities.MatchResultDetail", b =>
+                {
+                    b.HasOne("ParsiBin.DAL.Entities.ActionType", "ActionType")
+                        .WithMany()
+                        .HasForeignKey("ActionTypeId");
+
+                    b.HasOne("ParsiBin.DAL.Entities.MatchResult", "MatchResult")
+                        .WithMany()
+                        .HasForeignKey("MatchResultId");
+
+                    b.HasOne("ParsiBin.DAL.Entities.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId");
+
+                    b.HasOne("ParsiBin.DAL.Entities.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId");
+
+                    b.Navigation("ActionType");
+
+                    b.Navigation("MatchResult");
+
+                    b.Navigation("Player");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.MatchResultState", b =>
+                {
+                    b.HasOne("ParsiBin.DAL.Entities.MatchResult", "MatchResult")
+                        .WithMany()
+                        .HasForeignKey("MatchResultId");
+
+                    b.Navigation("MatchResult");
+                });
+
             modelBuilder.Entity("ParsiBin.DAL.Entities.Player", b =>
                 {
                     b.HasOne("ParsiBin.DAL.Entities.Country", "Nationality")
@@ -451,6 +736,21 @@ namespace ParsiBin.DAL.Migrations
                         .HasForeignKey("NationalityId");
 
                     b.Navigation("Nationality");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.PlayerPosition", b =>
+                {
+                    b.HasOne("ParsiBin.DAL.Entities.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId");
+
+                    b.HasOne("ParsiBin.DAL.Entities.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId");
+
+                    b.Navigation("Player");
+
+                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("ParsiBin.DAL.Entities.Season", b =>
@@ -486,38 +786,32 @@ namespace ParsiBin.DAL.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("ParsiBin.DAL.Entities.Team", b =>
+            modelBuilder.Entity("ParsiBin.DAL.Entities.TeamCoach", b =>
                 {
-                    b.HasOne("ParsiBin.DAL.Entities.City", "City")
+                    b.HasOne("ParsiBin.DAL.Entities.Coach", "Coach")
                         .WithMany()
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("ParsiBin.DAL.Entities.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("ParsiBin.DAL.Entities.Stadium", "Stadium")
-                        .WithMany("TeamsArena")
-                        .HasForeignKey("StadiumId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Stadium");
-                });
-
-            modelBuilder.Entity("ParsiBin.DAL.Entities.TeamSeason", b =>
-                {
-                    b.HasOne("ParsiBin.DAL.Entities.Season", "Season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId");
+                        .HasForeignKey("CoachId");
 
                     b.HasOne("ParsiBin.DAL.Entities.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId");
 
-                    b.Navigation("Season");
+                    b.Navigation("Coach");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("ParsiBin.DAL.Entities.TeamPlayers", b =>
+                {
+                    b.HasOne("ParsiBin.DAL.Entities.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId");
+
+                    b.HasOne("ParsiBin.DAL.Entities.Team", "Team")
+                        .WithMany("TeamPlayers")
+                        .HasForeignKey("TeamId");
+
+                    b.Navigation("Player");
 
                     b.Navigation("Team");
                 });
@@ -542,14 +836,11 @@ namespace ParsiBin.DAL.Migrations
                     b.Navigation("SeasonTeams");
                 });
 
-            modelBuilder.Entity("ParsiBin.DAL.Entities.Stadium", b =>
-                {
-                    b.Navigation("TeamsArena");
-                });
-
             modelBuilder.Entity("ParsiBin.DAL.Entities.Team", b =>
                 {
                     b.Navigation("SeasonTeams");
+
+                    b.Navigation("TeamPlayers");
                 });
 #pragma warning restore 612, 618
         }

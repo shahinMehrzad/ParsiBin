@@ -9,6 +9,6 @@ namespace ParsiBin.DAL.Entities
     {
         public string Name { get; set; }
         public City City { get; set; }
-        public virtual List<Team> TeamsArena { get; set; }
+        //public virtual List<Team> TeamsArena { get; set; }
     }
 }

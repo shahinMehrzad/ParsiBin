@@ -22,7 +22,7 @@ namespace ParsiBin.Repository.Implements
         public async Task<IEnumerable<Team>> GetTeamsList(int LeagueId, int SeasonId)
         {
             var result = await _context.Team
-                .Include(x => x.Stadium)
+                //.Include(x => x.Stadium)
                 .Include(x => x.SeasonTeams)
                 .ThenInclude(x => x.Season)
                 .ThenInclude(x => x.League)
@@ -39,9 +39,9 @@ namespace ParsiBin.Repository.Implements
                         Logo = item.Logo,
                         Status = item.Status,
                         Description = item.Description,
-                        Country = item.Country,
-                        City = item.City,
-                        Stadium = item.Stadium,
+                        //Country = item.Country,
+                        //City = item.City,
+                        //Stadium = item.Stadium,
                         SeasonTeams = item.SeasonTeams.Where(x => x.Season.Id == SeasonId && x.Season.League.Id == LeagueId).ToList()
                     });
                 }
