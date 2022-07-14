@@ -10,6 +10,7 @@ using ParsiBin.Repository.BaseRepository;
 using ParsiBin.DAL.Context;
 using Microsoft.Data.SqlClient;
 using System.Globalization;
+using Microsoft.ML;
 
 namespace DataParser
 {
@@ -21,6 +22,7 @@ namespace DataParser
         {
             HtmlDocument doc = new HtmlDocument();
             HtmlWeb web = new HtmlWeb();
+
             #region Players
             //doc.Load("../../../players.html");
             //var myNodes = doc.DocumentNode.SelectNodes("//tr");
@@ -65,25 +67,81 @@ namespace DataParser
             //}
             #endregion
 
+            #region Results
+            //doc.Load("../../../premier league.html");
+            //var myNodes = doc.DocumentNode.SelectNodes("//div[starts-with(@class,'fixres__item')]/a");
+            //foreach (HtmlNode node in myNodes)
+            //{
+            //    var url = node.Attributes[0].Value;
+            //    var xLenght = url.Length;
+            //    url = url.Substring(0, xLenght - 6) + "stats/" + url.Substring(xLenght - 6, 6);
+            //    doc = web.Load(url);
 
+            //    var matchtime = doc.DocumentNode.SelectNodes("//script[starts-with(@type,'application/ld+json')]");
+            //    var des = JsonConvert.DeserializeObject<match>(matchtime[0].InnerText);
+            //    var matchId =  AddMatch(des);
+            //    var teamsdiv = doc.DocumentNode.SelectNodes("//div[starts-with(@class,'sdc-site-match-header__teams')]/h4/span[starts-with(@class,'sdc-site-match-header__team-score')]");
+            //    var homeGoal = int.Parse(teamsdiv[0].InnerText);
+            //    var awayGoal = int.Parse(teamsdiv[1].InnerText);
+            //    var matchresultId = AddMatchResult(matchId, homeGoal, awayGoal);
+            //    var statisticdiv = doc.DocumentNode.SelectNodes("//div[starts-with(@class,'sdc-site-match-stats__inner')]/div[starts-with(@class,'sdc-site-match-stats__stats')]");
+            //    MatchStatistics matchStatistics = new MatchStatistics();
+            //    matchStatistics.MatchResultId = matchresultId;
+            //    //Possession
+            //    matchStatistics.HomeTeam_Possession = double.Parse(statisticdiv[0].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Possession = double.Parse(statisticdiv[0].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Total_Shots
+            //    matchStatistics.HomeTeam_Total_Shots = int.Parse(statisticdiv[1].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Total_Shots = int.Parse(statisticdiv[1].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //On_Target_Shots
+            //    matchStatistics.HomeTeam_On_Target_Shots = int.Parse(statisticdiv[2].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_On_Target_Shots = int.Parse(statisticdiv[2].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Of_Target_Shots
+            //    matchStatistics.HomeTeam_Of_Target_Shots = int.Parse(statisticdiv[3].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Of_Target_Shots = int.Parse(statisticdiv[3].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Blocked_Shots
+            //    matchStatistics.HomeTeam_Blocked_Shots = int.Parse(statisticdiv[4].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Blocked_Shots = int.Parse(statisticdiv[4].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Passing_Percentage
+            //    matchStatistics.HomeTeam_Passing_Percentage = double.Parse(statisticdiv[5].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Passing_Percentage = double.Parse(statisticdiv[5].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Clear_Cut_Chances
+            //    matchStatistics.HomeTeam_Clear_Cut_Chances = int.Parse(statisticdiv[6].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Clear_Cut_Chances = int.Parse(statisticdiv[6].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Corners
+            //    matchStatistics.HomeTeam_Corners = int.Parse(statisticdiv[7].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Corners = int.Parse(statisticdiv[7].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Offsides
+            //    matchStatistics.HomeTeam_Offsides = int.Parse(statisticdiv[8].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Offsides = int.Parse(statisticdiv[8].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Tackles_Percentage
+            //    matchStatistics.HomeTeam_Tackles_Percentage = double.Parse(statisticdiv[9].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Tackles_Percentage = double.Parse(statisticdiv[9].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Aerial_Duels_Percentage
+            //    matchStatistics.HomeTeam_Aerial_Duels_Percentage = double.Parse(statisticdiv[10].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Aerial_Duels_Percentage = double.Parse(statisticdiv[10].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Saves
+            //    matchStatistics.HomeTeam_Saves = int.Parse(statisticdiv[11].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Saves = int.Parse(statisticdiv[11].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Fouls_Committed
+            //    matchStatistics.HomeTeam_Fouls_Committed = int.Parse(statisticdiv[12].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Fouls_Committed = int.Parse(statisticdiv[12].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Fouls_Won
+            //    matchStatistics.HomeTeam_Fouls_Won = int.Parse(statisticdiv[13].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Fouls_Won = int.Parse(statisticdiv[13].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Yellow_Cards
+            //    matchStatistics.HomeTeam_Yellow_Cards = int.Parse(statisticdiv[14].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Yellow_Cards = int.Parse(statisticdiv[14].ChildNodes[3].ChildNodes[3].InnerText);
+            //    //Red_Cards
+            //    matchStatistics.HomeTeam_Red_Cards = int.Parse(statisticdiv[15].ChildNodes[1].ChildNodes[3].InnerText);
+            //    matchStatistics.AwayTeam_Red_Cards = int.Parse(statisticdiv[15].ChildNodes[3].ChildNodes[3].InnerText);
+            //    AddMatchState(matchStatistics);
+            //}
+            ////Console.WriteLine("Hello World!");
+            #endregion
 
-            doc.Load("../../../premier league.html");
-            var myNodes = doc.DocumentNode.SelectNodes("//div[starts-with(@class,'fixres__item')]/a");
-            foreach (HtmlNode node in myNodes)
-            {
-                var url = node.Attributes[0].Value;
-                var xLenght = url.Length;
-                url = url.Substring(0, xLenght - 6) + "stats/" + url.Substring(xLenght - 6, 6);
-                doc = web.Load(url);
+            MLContext mlContext = new MLContext(seed: 0);
 
-                var matchtime = doc.DocumentNode.SelectNodes("//script[starts-with(@type,'application/ld+json')]");
-                var des = JsonConvert.DeserializeObject<match>(matchtime[0].InnerText);
-                //var matchId =  AddMatch(des);
-                var teamsdiv = doc.DocumentNode.SelectNodes("//div[starts-with(@class,'sdc-site-match-header__teams')]/h4/span[starts-with(@class,'sdc-site-match-header__team-score')]");
-                var homeGoal = int.Parse(teamsdiv[0].InnerText);
-                var awayGoal = int.Parse(teamsdiv[1].InnerText);
-            }
-            //Console.WriteLine("Hello World!");
 
         }
 
@@ -111,6 +169,61 @@ namespace DataParser
 
         }
 
+        static int AddMatchResult(int MatchId, int HomeGoal, int AwayGoal)
+        {
+            string queryString = "Insert Into MatchResult (MatchId, HomeGoal, AwayGoal, CreateDate, Status) "
+                    + " VALUES (" + MatchId + "," + HomeGoal + "," + AwayGoal + ",'" + DateTime.Now + "',1) SELECT CAST(scope_identity() AS int)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    var x = (int)command.ExecuteScalar();
+                    System.Threading.Thread.Sleep(350);
+                    return x;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return 0;
+        }
+
+        static void AddMatchState(MatchStatistics model)
+        {
+            string queryString = "Insert Into MatchResultState (MatchResultId, HomeTeam_Possession, AwayTeam_Possession, HomeTeam_Total_Shots, AwayTeam_Total_Shots," +
+                "HomeTeam_On_Target_Shots, AwayTeam_On_Target_Shots, HomeTeam_Of_Target_Shots, AwayTeam_Of_Target_Shots, HomeTeam_Blocked_Shots, AwayTeam_Blocked_Shots," +
+                "HomeTeam_Passes, AwayTeam_Passes, HomeTeam_Passing_Percentage, AwayTeam_Passing_Percentage, HomeTeam_Clear_Cut_Chances, AwayTeam_Clear_Cut_Chances, " +
+                "HomeTeam_Corners, AwayTeam_Corners, HomeTeam_Offsides, AwayTeam_Offsides, HomeTeam_Tackles_Percentage, AwayTeam_Tackles_Percentage, HomeTeam_Aerial_Duels_Percentage, AwayTeam_Aerial_Duels_Percentage," +
+                "HomeTeam_Saves, AwayTeam_Saves, HomeTeam_Fouls_Committed, AwayTeam_Fouls_Committed, HomeTeam_Fouls_Won, AwayTeam_Fouls_Won, HomeTeam_Yellow_Cards, AwayTeam_Yellow_Cards," +
+                "HomeTeam_Red_Cards, AwayTeam_Red_Cards, HomeTeam_Touches, AwayTeam_Touches, CreateDate, Status) "
+                    + " VALUES (" + model.MatchResultId + "," + model.HomeTeam_Possession + "," + model.AwayTeam_Possession + "," + model.HomeTeam_Total_Shots + "," + model.AwayTeam_Total_Shots + "," +
+                    model.HomeTeam_On_Target_Shots + "," + model.AwayTeam_On_Target_Shots + "," + model.HomeTeam_Of_Target_Shots + "," + model.AwayTeam_Of_Target_Shots + "," + model.HomeTeam_Blocked_Shots + "," + model.AwayTeam_Blocked_Shots + "," +
+                    model.HomeTeam_Passes + "," + model.AwayTeam_Passes + "," + model.HomeTeam_Passing_Percentage + "," + model.AwayTeam_Passing_Percentage + "," + model.HomeTeam_Clear_Cut_Chances + "," + model.AwayTeam_Clear_Cut_Chances  + "," +
+                    model.HomeTeam_Corners + "," + model.AwayTeam_Corners + "," + model.HomeTeam_Offsides + ","  + model.AwayTeam_Offsides + "," + model.HomeTeam_Tackles_Percentage + ","  + model.AwayTeam_Tackles_Percentage + ","  + model.HomeTeam_Aerial_Duels_Percentage + ","  + model.AwayTeam_Aerial_Duels_Percentage + ","  +
+                    model.HomeTeam_Saves + ","  + model.AwayTeam_Saves + ","  + model.HomeTeam_Fouls_Committed + "," + model.AwayTeam_Fouls_Committed + "," + model.HomeTeam_Fouls_Won + ","  + model.AwayTeam_Fouls_Won + ","  + model.HomeTeam_Yellow_Cards + "," +  model.AwayTeam_Yellow_Cards + "," +
+                    model.HomeTeam_Red_Cards + "," + model.AwayTeam_Red_Cards +  "," + model.HomeTeam_Touches + "," + model.AwayTeam_Touches + ",'" + DateTime.Now + "',1)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+
+        #region Player,Country
         static int AddCountry(string Country)
         {
             string queryString = "Insert Into Country (Name, CreateDate, Status) "
@@ -146,7 +259,7 @@ namespace DataParser
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        return int.Parse(reader[0].ToString());                        
+                        return int.Parse(reader[0].ToString());
                     }
                 }
                 catch (Exception ex)
@@ -237,6 +350,7 @@ namespace DataParser
                     return 0;
             }
         }
+        #endregion
 
         static int GetTeamId(string Team)
         {

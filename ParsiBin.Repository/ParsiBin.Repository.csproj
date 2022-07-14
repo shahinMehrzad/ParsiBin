@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ParsiBin.DAL\ParsiBin.DAL.csproj" />
-    <ProjectReference Include="..\ParsiBin.DTO\ParsiBin.DTO.csproj" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Implements\" />
   </ItemGroup>
 
 </Project>

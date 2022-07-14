@@ -9,11 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ParsiBin.Common\ParsiBin.Common.csproj" />
-    <ProjectReference Include="..\ParsiBin.Services\ParsiBin.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 

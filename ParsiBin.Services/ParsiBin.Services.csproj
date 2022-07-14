@@ -8,10 +8,4 @@
     <PackageReference Include="Mapster" Version="7.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ParsiBin.DAL\ParsiBin.DAL.csproj" />
-    <ProjectReference Include="..\ParsiBin.DTO\ParsiBin.DTO.csproj" />
-    <ProjectReference Include="..\ParsiBin.Repository\ParsiBin.Repository.csproj" />
-  </ItemGroup>
-
 </Project>

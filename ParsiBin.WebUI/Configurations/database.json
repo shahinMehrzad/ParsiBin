@@ -1,0 +1,9 @@
+{
+  "DatabaseSettings": {
+    "DBProvider": "mssql",
+    "ConnectionStrings": {
+      "ApplicationConnection": "Server=DESKTOP-V0T1R5F\\SQLEXPRESS;Initial Catalog=ParsiBin;Integrated Security=True;",
+      "IdentityConnection": "Server=DESKTOP-V0T1R5F\\SQLEXPRESS;Initial Catalog=ParsiBin;Integrated Security=True;"
+    }
+  }
+}

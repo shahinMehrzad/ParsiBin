@@ -64,6 +64,18 @@ namespace DataParser
                         return 19;
                     case ("Villa Park"):
                         return 20;
+                    case ("Amex Stadium"):
+                        return 21;
+                    case ("Etihad Stadium"):
+                        return 22;
+                    case ("St. Mary's Stadium"):
+                        return 23;
+                    case ("St James' Park, Newcastle"):
+                        return 24;
+                    case ("The King Power Stadium"):
+                        return 25;
+                    case ("Emirates Stadium"):
+                        return 26;
                     default:
                         return 0;
                 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Mapster;
+using System.Linq;
 
 namespace ParsiBin.Services.Implements
 {
@@ -23,6 +24,7 @@ namespace ParsiBin.Services.Implements
 
         public async Task<IEnumerable<CountryDTO>> GetList()
         {
+            var x = await _repo.GetList(filter: filter => filter.Cities == new List<City>().Where(x=>x.Stadiums.Contains(new Stadium { Id = 6})));
             var result = await _repo.GetList();
             return result.Adapt<List<CountryDTO>>();
         }
